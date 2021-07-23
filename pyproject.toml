@@ -1,15 +1,35 @@
-[tool.poetry]
-name = "PyHAB"
-version = "0.1.0"
-description = ""
-authors = ["Jason Walker 🦖 <jwwalker@amazon.com>"]
-
-[tool.poetry.dependencies]
-python = "^3.9"
-
-[tool.poetry.dev-dependencies]
-pytest = "^5.2"
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "PyHAB"
+version = "0.1.0"
+description = "A python library for high altitude balloon projects!"
+authors = ["Jason Walker <ungood@onetrue.name>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+numpy = "^1.21.0"
+sympy = "^1.8"
+Pint = "^0.17"
+proj = "^0.2.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+poethepoet = "^0.10.0"
+jupyter = "^1.0.0"
+black = "^21.6b0"
+pygraphviz = "^1.7"
+jupyter-book = "^0.11.2"
+
+[tool.poe.tasks]
+test = "pytest"
+nb = "jupyter notebook book"
+jb = "jupyter-book"
+build-book = [
+    {"cmd" = "jupyter-book build book"},
+    {"cmd" = "rm -rf docs"},
+    {"cmd" = "mv book/_build/html docs"}
+]
+build = ["build-book"]
