@@ -30,6 +30,7 @@ jb = "jupyter-book"
 build-book = [
     {"cmd" = "jupyter-book build book"},
     {"cmd" = "rm -rf docs"},
-    {"cmd" = "mv book/_build/html docs"}
+    {"cmd" = "mv book/_build/html docs"},
+    {"cmd" = "touch docs/.nojekyll"}
 ]
 build = ["build-book"]
