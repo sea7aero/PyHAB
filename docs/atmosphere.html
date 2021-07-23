@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Burst Calculator &#8212; PyHAB</title>
+    <title>Atmospheric Model &#8212; PyHAB</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -93,7 +93,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Burst Calculator
+   Atmospheric Model
   </a>
  </li>
 </ul>
@@ -206,15 +206,10 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#atmospheric-model">
-   Atmospheric Model
+  <a class="reference internal nav-link" href="#hydrostatic-equation">
+   Hydrostatic equation
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hydrostatic-equation">
-     Hydrostatic equation
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#ideal-gas-law">
      Ideal Gas Law
@@ -243,9 +238,10 @@
         
               <div>
                 
-  <div class="section" id="burst-calculator">
-<h1>Burst Calculator<a class="headerlink" href="#burst-calculator" title="Permalink to this headline">¶</a></h1>
-<p>This notebook serves as documentation for the models and calculations that are implemented in code in this package.</p>
+  <div class="section" id="atmospheric-model">
+<h1>Atmospheric Model<a class="headerlink" href="#atmospheric-model" title="Permalink to this headline">¶</a></h1>
+<p>The basis of all of our calculations and simulations is a model of Earth’s atmosphere, of which there are several.  The <a class="reference external" href="https://en.wikipedia.org/wiki/International_Standard_Atmosphere">International Standard Atmosphere</a> (ISA) is used most commonl in the field of aviation, so that is what we will use.</p>
+<p>The ISA is a mathematical model of the atmosphere that assumes a linear temperature gradient against altitude, and derives pressure and density from the <a class="reference external" href="https://en.wikipedia.org/wiki/Ideal_gas_law">ideal gas law</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Hydrostatic_equilibrium">hydrostatic equilibrium</a>.</p>
 <div class="section" id="symbols-used">
 <h2>Symbols used<a class="headerlink" href="#symbols-used" title="Permalink to this headline">¶</a></h2>
 <p>Since the primary source upon which the models in this package are built from is the ISA, I will use the symbols defined in the paper that defined it.</p>
@@ -278,12 +274,8 @@ $\rho$ | Density</p>
 </div>
 </div>
 </div>
-<div class="section" id="atmospheric-model">
-<h2>Atmospheric Model<a class="headerlink" href="#atmospheric-model" title="Permalink to this headline">¶</a></h2>
-<p>The basis of all of our calculations and simulations is a model of Earth’s atmosphere, of which there are several.  The <a class="reference external" href="https://en.wikipedia.org/wiki/International_Standard_Atmosphere">International Standard Atmosphere</a> (ISA) is used most commonl in the field of aviation, so that is what we will use.</p>
-<p>The ISA is a mathematical model of the atmosphere that assumes a linear temperature gradient against altitude, and derives pressure and density from the <a class="reference external" href="https://en.wikipedia.org/wiki/Ideal_gas_law">ideal gas law</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Hydrostatic_equilibrium">hydrostatic equilibrium</a>.</p>
 <div class="section" id="hydrostatic-equation">
-<h3>Hydrostatic equation<a class="headerlink" href="#hydrostatic-equation" title="Permalink to this headline">¶</a></h3>
+<h2>Hydrostatic equation<a class="headerlink" href="#hydrostatic-equation" title="Permalink to this headline">¶</a></h2>
 <p>Our model begins by noting that since the atmosphere is not floating away into space, nor sinking to the ground, it must be at equilibrium: all vertical forces must sum to zero. That is to say, it is at <a class="reference external" href="https://en.wikipedia.org/wiki/Hydrostatic_equilibrium">hydrostatic equilibrium</a>. For a column of air in the atmosphere, the 3 forces we’ll model are from the surrounding air pressure - air pushing up from below, air pushing down from above - and the weight of the column of air itself:</p>
 <p><span class="math notranslate nohighlight">\(0 = F_{below} + F_{above} + F_{weight}\)</span></p>
 <p>Replacing with the definitions of pressure and weight gives us (For reasons that will become apparent, we will refer to the pressure at the base of the cylinder as <span class="math notranslate nohighlight">\(P_b\)</span> and the pressure at the top simply as <span class="math notranslate nohighlight">\(P\)</span>):</p>
@@ -348,18 +340,13 @@ $\rho$ | Density</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z</span><span class="p">,</span> <span class="n">z_1</span><span class="p">,</span> <span class="n">z_2</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">T_v</span><span class="p">,</span> <span class="n">dz</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;z z_1 z_2 g R T_v dz&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">p_1</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;p_1 p_2 dp p&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">P</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)</span>
-<span class="n">integrate</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">P</span><span class="p">,</span> <span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">p_1</span><span class="p">,</span> <span class="n">p_2</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_latex math notranslate nohighlight">
-\[\displaystyle - \log{\left(p_{1} \right)} + \log{\left(p_{2} \right)}\]</div>
-</div>
+\[\displaystyle P = P_{b} - g h \rho\]</div>
 </div>
 </div>
 <div class="section" id="ideal-gas-law">
@@ -400,16 +387,8 @@ $\rho$ | Density</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">gw</span><span class="o">/</span><span class="n">fwbnxl652jx80ff49ndt1x6jzjvjfq</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_34288</span><span class="o">/</span><span class="mf">460363906.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Density is defined as mass / volume:</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># rho = m / V</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">_</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">P</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">m</span><span class="o">/</span><span class="n">V</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
-
-<span class="ne">AttributeError</span>: &#39;list&#39; object has no attribute &#39;subs&#39;
-</pre></div>
-</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle P = \frac{R^{*} T \rho}{M}\]</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -420,6 +399,10 @@ $\rho$ | Density</p>
 <span class="n">molar_gas_law</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle P = R T \rho\]</div>
 </div>
 </div>
 </div>
@@ -446,6 +429,15 @@ $\rho$ | Density</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{4 \pi P r^{3}}{3} = R^{*} T n\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{3 R^{*} T n}{4 \pi r^{3}}\]</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;(3/4)*R^**T*n/(math.pi*r**3)&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -465,6 +457,10 @@ $\rho$ | Density</p>
 <span class="n">bouyancy</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle F_{b} = V g \left(- \rho_{air} + \rho_{gas}\right)\]</div>
 </div>
 </div>
 </div>
