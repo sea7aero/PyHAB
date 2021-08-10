@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PyHAB &#8212; PyHAB</title>
+    <title>Terminology &#8212; PyHAB</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -49,9 +49,10 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Atmospheric Model" href="atmosphere.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -68,7 +69,7 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="#">
+    <a class="navbar-brand text-wrap" href="index.html">
       
       <img src="_static/logo.png" class="logo" alt="logo">
       
@@ -82,8 +83,8 @@
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
- <li class="toctree-l1 current">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="index.html">
    PyHAB
   </a>
  </li>
@@ -140,9 +141,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/index.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/terminology.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -160,7 +161,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/sea7aero/PyHAB/issues/new?title=Issue%20on%20page%20%2Findex.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/sea7aero/PyHAB/issues/new?title=Issue%20on%20page%20%2Fterminology.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -176,6 +177,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sea7aero/PyHAB/main?urlpath=tree/docs/terminology.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -187,9 +205,31 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#methodology">
-   Methodology
+  <a class="reference internal nav-link" href="#coordinate-systems">
+   Coordinate Systems
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vertical-distance">
+   Vertical Distance
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-note-on-sea-level">
+     A note on sea level
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geometric-vs-geopotential-height">
+     Geometric vs geopotential height
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ways-to-measure-altitude">
+     Ways to measure altitude
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -202,28 +242,37 @@
         
               <div>
                 
-  <div class="section" id="pyhab">
-<h1>PyHAB<a class="headerlink" href="#pyhab" title="Permalink to this headline">¶</a></h1>
-<p>PyHAB is a library for high altitude balloon (HAB) projects, collecting several useful resources
-in one place including:</p>
-<ul class="simple">
-<li><p>An atmospheric model used to derive…</p></li>
-<li><p>An altitude burst calculator</p></li>
-<li><p>A descent rate calculator</p></li>
-<li><p>A flight simulation model</p></li>
-</ul>
-<div class="section" id="methodology">
-<h2>Methodology<a class="headerlink" href="#methodology" title="Permalink to this headline">¶</a></h2>
-<p>Part of the inspiration for creating this library is doing research for my first HAB project,
-Graupel-1, and getting frustrated with finding papers lacking in example code, and example
-code lacking in documentation and derivations.</p>
-<p>This is a problem across computing field, in general, I find, and so this project is trying
-something a bit new: <em>generate the code from the documentation</em>.</p>
-<p>The <a class="reference external" href="https://jupyter.org/">Jupyter</a> notebooks on this site not only serve as the documentation
-for the library, but they are also used to derive the mathematical models used <strong>and</strong> generate
-the code from those models directly.</p>
+  <div class="section" id="terminology">
+<h1>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h1>
+<p>In order to more precisely communicate the models used throughout this book, we will begin with a short introduction to the terminology we use. As a balloon is a type of aircraft, we will bias towards terminology used in the aviation field.  Additionally, as our simulation is highly dependent on meterology, we will utilize terminology from there.</p>
+<div class="section" id="coordinate-systems">
+<h2>Coordinate Systems<a class="headerlink" href="#coordinate-systems" title="Permalink to this headline">¶</a></h2>
+<p>In order to specify a location, it must be related to a <a class="reference external" href="https://en.wikipedia.org/wiki/Datum_reference">datum</a> - a refrence point in defining the geometry of an object. There are a large number of <a class="reference external" href="https://en.wikipedia.org/wiki/Geodetic_datum">geodetic datums</a> used for measuring locations on Earth. In this library, unless otherwise specified, coordinates will be relative to <a class="reference external" href="https://en.wikipedia.org/wiki/World_Geodetic_System">WGS84</a>, the standard used by GPS.</p>
 </div>
-<div class="toctree-wrapper compound">
+<div class="section" id="vertical-distance">
+<h2>Vertical Distance<a class="headerlink" href="#vertical-distance" title="Permalink to this headline">¶</a></h2>
+<p>Since the vertical distance above some reference point (for example, the ground) is such a critical measurement for aircraft there is, of course, a wide array of jargon used. For clarity, we will use the following definitions offered by the International Civil Aviation Organization (ICAO):</p>
+<ul class="simple">
+<li><p><strong>Height</strong>: the vertical distance of an object, measured from a specific datum.</p></li>
+<li><p><strong>Altitude</strong>: the vertical distance of an object, measured from the mean sea level (MSL).</p></li>
+<li><p><strong>Elevation</strong>: the vertical distance of Earth’s surface, measured from MSL.  The Earth’s “elevation”.</p></li>
+</ul>
+<div class="section" id="a-note-on-sea-level">
+<h3>A note on sea level<a class="headerlink" href="#a-note-on-sea-level" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Sea_level">Mean sea level</a> is itself a bit of a misnomer. It used to be measured as the mean between low-tide and high-tide for a particular location, which varies as you travel about. It’s also rather hard to measure in some places (like the middle of the ocean). Nowadays, we tend to define mean sea level as the surface that would exist if the oceans were at rest, unaffected by wind, currents and moon and interconnected by canals across continental land masses. A surface of equipotential, also known as the <a class="reference external" href="https://en.wikipedia.org/wiki/Geoid">geoid</a>.</p>
+<p>In this library, unless otherwise specified, we will use <a class="reference external" href="https://en.wikipedia.org/wiki/Earth_Gravitational_Model">EGM84</a> - a part of WGS84 - as our vertical datum.</p>
+</div>
+<div class="section" id="geometric-vs-geopotential-height">
+<h3>Geometric vs geopotential height<a class="headerlink" href="#geometric-vs-geopotential-height" title="Permalink to this headline">¶</a></h3>
+<p>To make matters more confusing, not all vertical coordinates are actually based on length. It is commonly useful to refer to calculate altitudes from the <a class="reference external" href="https://en.wikipedia.org/wiki/Geopotential">geopotential</a> at that location. Geopotential numbers have units <span class="math notranslate nohighlight">\(\frac{m^2}{s^2}\)</span>, which can then be normalized by dividing by a constant nominal value of gravity with units <span class="math notranslate nohighlight">\(\frac{m}{s^2}\)</span>, producing a value in meters. When normalizing by <a class="reference external" href="https://en.wikipedia.org/wiki/Standard_gravity">standard gravity</a>, this value is referred to as <a class="reference external" href="https://en.wikipedia.org/wiki/Geopotential_height">geopotential height</a>.</p>
+</div>
+<div class="section" id="ways-to-measure-altitude">
+<h3>Ways to measure altitude<a class="headerlink" href="#ways-to-measure-altitude" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Pressure altitude</p></li>
+</ul>
+<p>Most GPS receivers report altitude as geometric height above the geoid as their vertical datum, and also report the geoidal separation from the ellipsoid.</p>
+</div>
 </div>
 </div>
 
@@ -252,7 +301,6 @@ the code from those models directly.</p>
         
         <div class='prev-next-bottom'>
             
-    <a class='right-next' id="next-link" href="atmosphere.html" title="next page">Atmospheric Model</a>
 
         </div>
         

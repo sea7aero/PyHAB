@@ -53,6 +53,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Descent Rate" href="descent.html" />
     <link rel="prev" title="PyHAB" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -94,6 +95,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Atmospheric Model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="descent.html">
+   Descent Rate
   </a>
  </li>
 </ul>
@@ -240,44 +246,35 @@
                 
   <div class="section" id="atmospheric-model">
 <h1>Atmospheric Model<a class="headerlink" href="#atmospheric-model" title="Permalink to this headline">¶</a></h1>
-<p>The basis of all of our calculations and simulations is a model of Earth’s atmosphere, of which there are several.  The <a class="reference external" href="https://en.wikipedia.org/wiki/International_Standard_Atmosphere">International Standard Atmosphere</a> (ISA) is used most commonl in the field of aviation, so that is what we will use.</p>
+<p>The basis of our simulation is a model of Earth’s atmosphere, of which there are several.  The <a class="reference external" href="https://en.wikipedia.org/wiki/International_Standard_Atmosphere">International Standard Atmosphere</a> (ISA) is used by ICAO, is relatively simple, and accurate enough for our purposes.</p>
 <p>The ISA is a mathematical model of the atmosphere that assumes a linear temperature gradient against altitude, and derives pressure and density from the <a class="reference external" href="https://en.wikipedia.org/wiki/Ideal_gas_law">ideal gas law</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Hydrostatic_equilibrium">hydrostatic equilibrium</a>.</p>
 <div class="section" id="symbols-used">
 <h2>Symbols used<a class="headerlink" href="#symbols-used" title="Permalink to this headline">¶</a></h2>
 <p>Since the primary source upon which the models in this package are built from is the ISA, I will use the symbols defined in the paper that defined it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">symbols</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">symbol_table</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">symbol_table</span>
+<span class="c1">## WIP</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<p>Symbol | Description
--------|:-----------
-$A$ | Area
-$F$ | Force
-$g$ | Acceleration due to gravity
-$H$ | Geopotential height
-$h$ | Geometric height
-$P$ | Pressure
-$P_{b}$ | Pressure at the base of an atmospheric layer
-$M$ | Molecular mass
-$m$ | Mass
-$n$ | Amount of substance
-$R^{*}$ | Universal gas constant
-$R$ | Specific gas constant
-$T$ | Thermodynamic temperature
-$V$ | Volume
-$\rho$ | Density</p>
-</div>
+<div class="output text_html"><table><tr><th>Symbol</th><th>Description</th></tr><tr><td>$A$</td><td>Area</td></tr><tr><td>$C_{d}$</td><td>Coefficient of drag</td></tr><tr><td>$D$</td><td>Diameter</td></tr><tr><td>$F$</td><td>Force</td></tr><tr><td>$F_{d}$</td><td>Force of drag</td></tr><tr><td>$F_{g}$</td><td>Force of gravity</td></tr><tr><td>$g$</td><td>Acceleration due to gravity</td></tr><tr><td>$H$</td><td>Geopotential height</td></tr><tr><td>$h$</td><td>Geometric height</td></tr><tr><td>$P$</td><td>Pressure</td></tr><tr><td>$P_{b}$</td><td>Pressure at the base of an atmospheric layer</td></tr><tr><td>$M$</td><td>Molecular mass</td></tr><tr><td>$m$</td><td>Mass</td></tr><tr><td>$n$</td><td>Amount of substance</td></tr><tr><td>$R^{*}$</td><td>Universal gas constant</td></tr><tr><td>$R$</td><td>Specific gas constant</td></tr><tr><td>$T$</td><td>Thermodynamic temperature</td></tr><tr><td>$V$</td><td>Volume</td></tr><tr><td>$v$</td><td>Velocity</td></tr><tr><td>$\rho$</td><td>Density</td></tr></div></div>
 </div>
 </div>
 <div class="section" id="hydrostatic-equation">
 <h2>Hydrostatic equation<a class="headerlink" href="#hydrostatic-equation" title="Permalink to this headline">¶</a></h2>
 <p>Our model begins by noting that since the atmosphere is not floating away into space, nor sinking to the ground, it must be at equilibrium: all vertical forces must sum to zero. That is to say, it is at <a class="reference external" href="https://en.wikipedia.org/wiki/Hydrostatic_equilibrium">hydrostatic equilibrium</a>. For a column of air in the atmosphere, the 3 forces we’ll model are from the surrounding air pressure - air pushing up from below, air pushing down from above - and the weight of the column of air itself:</p>
-<p><span class="math notranslate nohighlight">\(0 = F_{below} + F_{above} + F_{weight}\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\require{action}
+\texttip{math}{tip}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F_{below} + F_{above} + F_{weight} = 0
+\]</div>
 <p>Replacing with the definitions of pressure and weight gives us (For reasons that will become apparent, we will refer to the pressure at the base of the cylinder as <span class="math notranslate nohighlight">\(P_b\)</span> and the pressure at the top simply as <span class="math notranslate nohighlight">\(P\)</span>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -467,6 +464,8 @@ $\rho$ | Density</p>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference external" href="https://atoc.colorado.edu/~cassano/atoc5050/Lecture_Notes/wh_ch3_part1.pdf">Here</a></p></li>
+<li><p><a class="reference external" href="http://www.aviationchief.com/uploads/9/2/0/9/92098238/icao_doc_7488_-_manual_of_icao_standard_atmosphere_-_3rd_edition_-_1994.pdf">ICAO Standard Atmosphere</a></p></li>
 <li><p><a class="reference external" href="https://cdn.standards.iteh.ai/samples/7472/c203e9121d4c40e5bdc98844b1a1e2f4/ISO-2533-1975.pdf">ISO 2533-1975: Standard Atmosphere</a></p></li>
 <li><p><a class="reference external" href="https://github.com/cuspaceflight/cusf-burst-calc/blob/master/js/calc.js">Inspiration</a></p></li>
 <li><p><a class="reference external" href="https://northstar-www.dartmouth.edu/~klynch/pmwiki-gc/uploads/BalloonCalulations.pdf">And</a></p></li>
@@ -501,6 +500,7 @@ $\rho$ | Density</p>
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="index.html" title="previous page">PyHAB</a>
+    <a class='right-next' id="next-link" href="descent.html" title="next page">Descent Rate</a>
 
         </div>
         

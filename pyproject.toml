@@ -22,6 +22,9 @@ jupyter = "^1.0.0"
 black = "^21.6b0"
 pygraphviz = "^1.7"
 jupyter-book = "^0.11.2"
+PyLaTeX = "^1.4.1"
+matplotlib = "^3.4.2"
+seaborn = "^0.11.1"
 
 [tool.poe.tasks]
 test = "pytest"

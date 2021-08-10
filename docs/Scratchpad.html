@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PyHAB &#8212; PyHAB</title>
+    <title>&lt;no title&gt; &#8212; PyHAB</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -49,9 +49,10 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Atmospheric Model" href="atmosphere.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -68,7 +69,7 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="#">
+    <a class="navbar-brand text-wrap" href="index.html">
       
       <img src="_static/logo.png" class="logo" alt="logo">
       
@@ -82,8 +83,8 @@
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
- <li class="toctree-l1 current">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="index.html">
    PyHAB
   </a>
  </li>
@@ -140,9 +141,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/index.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/Scratchpad.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -160,7 +161,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/sea7aero/PyHAB/issues/new?title=Issue%20on%20page%20%2Findex.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/sea7aero/PyHAB/issues/new?title=Issue%20on%20page%20%2FScratchpad.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -176,6 +177,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sea7aero/PyHAB/main?urlpath=tree/docs/Scratchpad.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -185,12 +203,7 @@
                 <i class="fas fa-list"></i> Contents
             </div>
             <nav id="bd-toc-nav">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#methodology">
-   Methodology
-  </a>
- </li>
+                <ul class="simple visible nav section-nav flex-column">
 </ul>
 
             </nav>
@@ -202,28 +215,33 @@
         
               <div>
                 
-  <div class="section" id="pyhab">
-<h1>PyHAB<a class="headerlink" href="#pyhab" title="Permalink to this headline">¶</a></h1>
-<p>PyHAB is a library for high altitude balloon (HAB) projects, collecting several useful resources
-in one place including:</p>
-<ul class="simple">
-<li><p>An atmospheric model used to derive…</p></li>
-<li><p>An altitude burst calculator</p></li>
-<li><p>A descent rate calculator</p></li>
-<li><p>A flight simulation model</p></li>
-</ul>
-<div class="section" id="methodology">
-<h2>Methodology<a class="headerlink" href="#methodology" title="Permalink to this headline">¶</a></h2>
-<p>Part of the inspiration for creating this library is doing research for my first HAB project,
-Graupel-1, and getting frustrated with finding papers lacking in example code, and example
-code lacking in documentation and derivations.</p>
-<p>This is a problem across computing field, in general, I find, and so this project is trying
-something a bit new: <em>generate the code from the documentation</em>.</p>
-<p>The <a class="reference external" href="https://jupyter.org/">Jupyter</a> notebooks on this site not only serve as the documentation
-for the library, but they are also used to derive the mathematical models used <strong>and</strong> generate
-the code from those models directly.</p>
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylatex</span> <span class="k">as</span> <span class="nn">p</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="math notranslate nohighlight" id="equation-my-other-label">
+<span class="eqno">()<a class="headerlink" href="#equation-my-other-label" title="Permalink to this equation">¶</a></span>\[
+  w_{t+1} = (1 + r_{t+1}) s(w_t) + y_{t+1}
+\]</div>
+<ul class="simple">
+<li><p>A link to an equation directive: <code class="xref eq docutils literal notranslate"><span class="pre">my_label</span></code></p></li>
+<li><p>A link to a dollar math block: <code class="xref eq docutils literal notranslate"><span class="pre">my_other_label</span></code></p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This text is <strong>standard</strong> <em>Markdown</em></p>
 </div>
 </div>
 
@@ -252,7 +270,6 @@ the code from those models directly.</p>
         
         <div class='prev-next-bottom'>
             
-    <a class='right-next' id="next-link" href="atmosphere.html" title="next page">Atmospheric Model</a>
 
         </div>
         
